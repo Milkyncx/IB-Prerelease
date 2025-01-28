@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Forum</title>
+  </head>
+  <body>
+    <nav>
+      <a href="index.html" class="nav__logo">Work Harder, Not Smarter<span></span></a>
+      <ul class="nav__links">
+        <li class="link"><a href="year-9.html">Year 9</a></li>
+        <li class="link"><a href="year-10.html">Year 10</a></li>
+        <li class="link"><a href="DP-1.html">DP 1</a></li>
+        <li class="link"><a href="DP-2.html">DP 2</a></li>
+        <li class="link"><a href="forum.html">Forum</a></li>
+      </ul>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mucoki.waweru@akamom.org" class="btn" target="_blank">
+        Email Me
+      </a>
+    </nav>
+
+    <header>
+      <div class="section__container header__container">
+        <div class="header__content">
+          <div>
+            <h1>Forum</h1>
+            <p>Total Threads: <span id="threadCount">0</span></p>
+            <input type="text" id="searchBar" class="input" placeholder="Search threads..." oninput="searchThreads()" />
+            <button class="btn" onclick="togglePostForm()">New Post</button>
+            <div id="postForm" class="collapsible hidden">
+              <input type="text" id="username" class="input" placeholder="Username" />
+              <input type="text" id="postTitle" class="input" placeholder="Title" />
+              <textarea id="postContent" class="input" placeholder="Content"></textarea>
+              <button class="btn" onclick="submitPost()">Post</button>
+              <button class="btn btn-secondary" onclick="togglePostForm()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="section__container">
+      <div id="threadsContainer"></div>
+    </section>
+
+    <section class="subscribe">
+      <div class="section__container subscribe__container">
+        <div class="subscribe__content">
+          <h2 class="section__title">NOTICE</h2>
+          <p class="section__subtitle">
+            Looking For Developers That Can Edit The Website With New Information Every Time IB Posts Any Prerelease Material Or Anything Similar
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          loadThreads();
+          updateThreadCount();
+      });
+
+      function togglePostForm() {
+          const postForm = document.getElementById('postForm');
+          postForm.classList.toggle('hidden');
+      }
+
+      function submitPost() {
+          let username = document.getElementById('username').value.trim();
+          let title = document.getElementById('postTitle').value.trim();
+          let content = document.getElementById('postContent').value.trim();
+
+          if (username && title && content) {
+              let threads = JSON.parse(localStorage.getItem('threads')) || [];
+              let newThread = {
+                  id: Date.now(),
+                  username,
+                  title,
+                  content,
+                  timestamp: new Date().toISOString(),
+                  comments: []
+              };
+              threads.push(newThread);
+              localStorage.setItem('threads', JSON.stringify(threads));
+
+              document.getElementById('username').value = '';
+              document.getElementById('postTitle').value = '';
+              document.getElementById('postContent').value = '';
+              togglePostForm();
+
+              loadThreads();
+              updateThreadCount();
+          } else {
+              alert("Please fill all fields.");
+          }
+      }
+
+      function loadThreads() {
+          let threadsContainer = document.getElementById('threadsContainer');
+          threadsContainer.innerHTML = "";
+          let threads = JSON.parse(localStorage.getItem('threads')) || [];
+
+          // Sort threads by newest first (descending order)
+          threads.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+          threads.forEach(thread => {
+              let threadElement = document.createElement('div');
+              threadElement.classList.add('thread');
+              threadElement.innerHTML = `
+                  <h3>${thread.title}</h3>
+                  <p style="color: white;"><strong>Posted by:</strong> ${thread.username}</p>
+                  <p style="color: white;">${thread.content}</p>
+                  <p><small>Posted on: ${new Date(thread.timestamp).toLocaleString()}</small></p>
+                  <button class="btn" onclick="viewComments(${thread.id})">
+                      Comments (${thread.comments.length})
+                  </button>
+                  <hr style="border: 1px solid white; margin: 20px 0;">
+              `;
+              threadsContainer.appendChild(threadElement);
+          });
+
+          updateThreadCount();
+      }
+
+      function searchThreads() {
+          let searchQuery = document.getElementById('searchBar').value.toLowerCase();
+          let threads = JSON.parse(localStorage.getItem('threads')) || [];
+          let filteredThreads = threads.filter(thread => thread.title.toLowerCase().includes(searchQuery));
+
+          let threadsContainer = document.getElementById('threadsContainer');
+          threadsContainer.innerHTML = "";
+
+          filteredThreads.forEach(thread => {
+              let threadElement = document.createElement('div');
+              threadElement.classList.add('thread');
+              threadElement.innerHTML = `
+                  <h3>${thread.title}</h3>
+                  <p style="color: white;"><strong>Posted by:</strong> ${thread.username}</p>
+                  <p style="color: white;">${thread.content}</p>
+                  <p><small>Posted on: ${new Date(thread.timestamp).toLocaleString()}</small></p>
+                  <button class="btn" onclick="viewComments(${thread.id})">
+                      Comments (${thread.comments.length})
+                  </button>
+                  <hr style="border: 1px solid white; margin: 20px 0;">
+              `;
+              threadsContainer.appendChild(threadElement);
+          });
+
+          updateThreadCount();
+      }
+
+      function viewComments(threadId) {
+          localStorage.setItem('currentThread', threadId);
+          window.location.href = 'comments.html';
+      }
+
+      // Function to update thread count
+      function updateThreadCount() {
+          let threads = JSON.parse(localStorage.getItem('threads')) || [];
+          document.getElementById('threadCount').textContent = threads.length;
+      }
+
+      document.addEventListener('contextmenu', function(event) {
+          if (event.target.nodeName !== "INPUT" && event.target.nodeName !== "TEXTAREA") {
+              event.preventDefault();
+              alert("Inspect element is disabled.");
+          }
+      });
+
+      // Disable F12, Ctrl+Shift+I, and Ctrl+U (view page source)
+      window.addEventListener('keydown', function(event) {
+          if (
+              event.key === "F12" || 
+              (event.ctrlKey && event.shiftKey && event.key === "I") || 
+              (event.ctrlKey && event.key === "u")
+          ) {
+              alert("Developer tools are disabled on this site.");
+              event.preventDefault();
+          }
+      });
+    </script>
+  </body>
+</html>

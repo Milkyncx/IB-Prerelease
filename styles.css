@@ -1,0 +1,369 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap");
+
+:root {
+  --primary-color: #2fb4e9;
+  --primary-color-dark: #003c78;
+  --secondary-color: #000000;
+  --text-dark: #0080bd;
+  --text-light: #767268;
+  --extra-light: #000000;
+  --max-width: 1200px;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.section__container {
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 5rem 1rem;
+}
+
+.section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.section__title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.section__subtitle {
+  font-size: 1rem;
+  color: var(--text-dark);
+  max-width: calc(var(--max-width) / 2);
+}
+
+.btn {
+  padding: 0.75rem 2rem;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--extra-light);
+  background-color: var(--text-dark);
+  border-radius: 5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #000000;
+}
+
+nav {
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--max-width);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav__logo {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.nav__logo span {
+  color: var(--primary-color-dark);
+}
+
+.nav__links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.link a {
+  padding: 0 1rem;
+  color: var(--text-dark);
+  transition: 0.3s;
+}
+
+.link a:hover {
+  color: var(--primary-color);
+}
+
+header {
+  background-color: var(--secondary-color);
+}
+
+.header__container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Keeps equal columns */
+  gap: 2rem;
+}
+
+.header__image {
+  position: relative;
+}
+
+.header__content{
+  background-color: #000000;
+}
+
+
+.header__image img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 0.5rem solid var(--extra-light);
+  border-radius: 2rem;
+  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header__image img:nth-child(1) {
+  max-width: 350px;
+  transform: translate(-50%, -50%); /* Keeps the original position */
+}
+
+.header__image img:nth-child(2) {
+  max-width: 250px;
+  transform: translate(0%, -25%);
+}
+
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Ensures content is left-aligned */
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.header__content > div {
+  max-width: 100%;
+  display: grid;
+  gap: 1rem;
+}
+
+.header__content .sub__header {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.header__content h1 {
+  font-size: 3rem;
+  line-height: 4rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.header__content .action__btns {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.subscribe {
+  background-color: var(--text-dark);
+}
+
+.subscribe__container {
+  display: flex;
+  align-items: center;
+justify-content: center;
+  gap: 2rem;
+}
+
+.subscribe__container h2, .subscribe__container p {
+  color: var(--extra-light);
+}
+
+
+.math-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding-bottom: 100px;
+}
+
+
+.section__container .math-links {
+  padding-left: 280px; 
+}
+
+.section__container .science-links {
+  padding-left: 120px;
+}
+
+.section__container h1 {
+  margin-bottom: 10px;
+}
+
+.section__container p {
+  margin-bottom: 20px; 
+}
+
+.comment {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.input {
+  background-color: #000000; 
+  color: #ffffff;             
+  border: 2px solid #ffffff;   
+  border-radius: 5rem;        
+  padding: 0.75rem 1rem;      
+  font-size: 1rem;          
+  outline: none;               
+  height: 3rem;               
+  width: 100%;                 
+  margin-bottom: 2rem;         
+}
+
+/* Add specific spacing between the two input fields */
+#usernameInput {
+  margin-bottom: 5px;  /* 5px space below the username input */
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.6); /* Lighter white for placeholder */
+}
+
+.input:focus {
+  border-color: var(--primary-color); /* Highlight on focus */
+}
+
+
+.hidden {
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.collapsible {
+  width: 100%;
+  max-width: 600px;  /* Keep the size consistent */
+  padding: 15px;
+  border: 1px solid #2fb4e9;
+  border-radius: 5px;
+  background: #000000;
+  transition: all 0.3s ease;
+}
+
+.collapsible input, 
+.collapsible textarea {
+  width: 100%;  /* Keep the same width even when collapsed */
+  max-width: 100%;  /* Prevent stretching beyond container */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box; 
+}
+
+.collapsible textarea {
+  height: 150px;  
+  resize: vertical;  
+}
+
+
+
+.btn-secondary {
+  background: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #bbb;
+}
+
+.comments-btn {
+  padding: 0.75rem 2rem;
+  outline: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--extra-light);
+  background-color: var(--text-dark);
+  border-radius: 5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.comments-btn:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.thread h3 {
+  font-size: 1.8rem; /* Increase title size */
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.thread p {
+  font-size: 1.2rem; /* Increase content text size */
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+.thread {
+  padding: 1.5rem 1rem;
+  border-bottom: 2px solid var(--text-dark); /* Add a bottom border to separate threads */
+  margin-bottom: 1rem; /* Add space between threads */
+}
+
+.thread:last-child {
+  border-bottom: none; /* Remove border from last thread */
+}
+
+.comment {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment p {
+  margin: 0;
+  color: #fff;
+}
+
+.comment .timestamp {
+  font-size: 0.8em;
+  color: #bbb;
+  display: block;
+  margin-top: 5px;
+}
+
